@@ -1,0 +1,60 @@
+@startuml
+' Editable source for a simplified class diagram; tailor it to fit A4 in your report.
+skinparam classAttributeIconSize 0
+hide empty members
+interface ControllerInterface {
+  +activate(String[], String[]): int
+  +enableUIView(): boolean
+  +disableUIView(): boolean
+  +getStateAsLog(): String[]
+}
+class Main
+class Controller {
+  +performUiAction(String): void
+  +startLesson(Difficulty): boolean
+  +submitAnswer(int): boolean
+}
+class LearningModel {
+  -features: FeatureManager
+  -progress: Progress
+  -lessons: LessonRepository
+  -log: UiStateLog
+  +changeFeatures(FeatureChangeCommand): int
+  +answer(int): boolean
+  +startLesson(Difficulty): boolean
+}
+class SwingView { +onStateChanged(List<UiElement>): void }
+interface ModelListener { +onStateChanged(List<UiElement>): void }
+class UiStateLog { +updateGroup(String, Collection<UiElement>): void }
+class UiElement <<record>>
+class FeatureManager { +execute(FeatureChangeCommand, boolean): int }
+class FeatureCatalogue { +contains(String): boolean }
+class FeatureChangeCommand <<record>>
+class LessonRepository { +get(Subject, Difficulty): Question }
+class Question <<record>>
+class Progress
+interface LivesPolicy {
+  +canStart(Progress): boolean
+  +wrongAnswer(Progress): void
+}
+class FreeLivesPolicy
+class PremiumLivesPolicy
+
+Main --> Controller
+ControllerInterface <|.. Controller
+Controller --> LearningModel
+Controller --> SwingView
+SwingView ..|> ModelListener
+LearningModel o--> "0..*" ModelListener
+LearningModel *-- FeatureManager
+LearningModel *-- LessonRepository
+LearningModel *-- Progress
+LearningModel *-- UiStateLog
+UiStateLog o-- "0..*" UiElement
+FeatureManager --> FeatureCatalogue
+FeatureManager ..> FeatureChangeCommand
+LessonRepository --> Question
+LearningModel --> LivesPolicy
+LivesPolicy <|.. FreeLivesPolicy
+LivesPolicy <|.. PremiumLivesPolicy
+@enduml

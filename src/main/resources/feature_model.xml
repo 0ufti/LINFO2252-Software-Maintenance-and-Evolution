@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendposition" value="1629,50"/>
+		<graphics key="legendautolayout" value="false"/>
+		<graphics key="showconstraints" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="SMART LEARNING SYSTEM">
+			<graphics key="collapsed" value="false"/>
+			<and mandatory="true" name="PROFILE">
+				<and mandatory="true" name="PROFILE INFO">
+					<feature mandatory="true" name="USER NAME"/>
+					<feature name="STATS"/>
+				</and>
+				<feature name="PROFILE SKIN"/>
+			</and>
+			<and mandatory="true" name="CONTENT">
+				<graphics key="collapsed" value="false"/>
+				<and mandatory="true" name="LEVELS">
+					<graphics key="collapsed" value="false"/>
+					<and mandatory="true" name="DIFFICULTIES">
+						<feature mandatory="true" name="EASY"/>
+						<feature mandatory="true" name="MEDIUM"/>
+						<feature mandatory="true" name="HARD"/>
+					</and>
+					<feature mandatory="true" name="SUBJECT / THEME"/>
+				</and>
+				<feature mandatory="true" name="RULES"/>
+				<feature name="STREAKS"/>
+				<or name="LEADERBROAD">
+					<graphics key="collapsed" value="false"/>
+					<feature name="BY COUNTRY"/>
+					<feature name="FOR THE WORLD"/>
+				</or>
+			</and>
+			<alt mandatory="true" name="LEARNING SUBJECT">
+				<graphics key="collapsed" value="false"/>
+				<feature name="ENGLISH"/>
+				<feature name="GENERAL KNOWLEDGE"/>
+				<feature name="PHYSICS"/>
+			</alt>
+			<and mandatory="true" name="PASS">
+				<and mandatory="true" name="FREE TO PLAY">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="LIMITED LIVE"/>
+					<and mandatory="true" name="ECONOMY">
+						<feature mandatory="true" name="INGAME CURRENCY"/>
+						<feature mandatory="true" name="SHOP"/>
+					</and>
+					<feature name="DAILY GOAL"/>
+				</and>
+				<and name="PREMIUM">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="INFINITE LIVE"/>
+					<feature name="FLASH CARD"/>
+				</and>
+			</and>
+			<and name="SETTING">
+				<graphics key="collapsed" value="false"/>
+				<and name="SOUND">
+					<graphics key="collapsed" value="false"/>
+					<feature name="VOLUME"/>
+					<feature name="SOUND OUTPUT"/>
+				</and>
+				<and name="GRAFICS">
+					<graphics key="collapsed" value="false"/>
+					<feature name="THEME"/>
+					<feature name="RESOLUTION"/>
+				</and>
+			</and>
+		</and>
+	</struct>
+</featureModel>
