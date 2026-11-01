@@ -1,136 +1,45 @@
-# Smart Learning - Mission 2 (WIP)
+# Smart Learning - SME33
 
-Group SME-33, LINFO2252 Software Maintenance and Evolution.
+Small Java learning app for the Software Maintenance course.
 
-This is a **work-in-progress prototype**, not a finished application. The terminal is the normal interface. A small Swing window is optional (and basic on purpose).
+## Run the program
 
-## Start the program
+Requires Java 17 and Maven. Open a terminal in the project folder and run:
 
-**Windows:** Have JDK 17 or newer installed and double-click `run.bat`.
-
-Or, from a terminal inside this project folder:
-
-```bat
-javac -encoding UTF-8 -d out src\*.java
-java -cp out Main
+```bash
+mvn compile
+java -cp target/classes Main
 ```
 
-Linux/macOS: `./run.sh`, or compile using `javac -encoding UTF-8 -d out src/*.java` and `java -cp out Main`.
-
-No Maven needed just to play the prototype. For the JUnit tests you need Maven: `mvn test` (also needs access to download JUnit 5 the first time).
-
-## Simple commands
-
-After starting the application, type a command, then Enter.
-
-| Command | Example |
-|---|---|
-| Select subject | `physics`, `english`, `general` |
-| Also accepts | `switch physics` |
-| Start difficulty | `easy`, `medium`, `hard` |
-| Also accepts | `start easy` |
-| Answer | `answer 2` (1 to 4) |
-| Open screens | `home`, `shop`, `profile`, `stats`, `flashcards`, `settings` |
-| Buy with coins | `buy stats`, `buy premium`, `buy refill` |
-| Enable features | `activate premium` |
-| Enable several | `activate streaks,daily goal` |
-| Disable | `deactivate premium` |
-| Atomic change | `change +PREMIUM,-STREAKS` |
-| Current short summary | `status` |
-| Current UI descriptions | `logs` |
-| Optional simple Swing UI | `ui on`, `ui off` |
-| Stop | `exit` |
-
-**Sample demo:**
-
-```
-physics
-easy
-answer 2
-shop
-buy stats
-activate premium
-stats
-logs
-deactivate premium
-status
-exit
+Or, you can use on Linux
+```bash
+./run.sh
 ```
 
-The first `buy stats` in this demo will fail if you haven't earned 12 coins yet. This is normal.
+Or, double click on run.bat on Windows
 
-## What works so far
+## Run the tests
 
-- Three subjects: English, Physics and General Knowledge.
-- Three difficulties per subject, with **one real sample multiple-choice question each**.
-- Correct/wrong answers, 5 free lives, and infinite lives for Premium.
-- +4 coins for the first correct completion of each question/difficulty; replay is possible but gives no more completion coins.
-- Shop: Statistics (12 coins), Premium (24 coins), life refill (5 coins).
-- Statistics can be bought without Premium. Premium also enables Statistics and Profile Skin.
-- Daily goal (+3 coins when enabled), streak counter, Flash Cards (Premium), Profile Skin and a minimal Theme setting.
-- Runtime activation/deactivation (including multiple changes in one call). Unknown or invalid changes don't partly apply.
-- Current-state UI logs, and a very small optional Swing window displaying the same elements.
-- JUnit tests for individual methods, configurations, runtime adaptation and logs.
-
-## Files (no long package path)
-
-| File | Role |
-|---|---|
-| `Main.java` | Terminal loop and commands |
-| `ControllerInterface.java` | The original interface from the course, unchanged |
-| `Controller.java` | Calls the Model, shows/hides the optional window |
-| `LearningModel.java` | Business rules and state; updates the logs |
-| `FeatureManager.java` | Checks which features can be changed, applies feature dependencies |
-| `FeatureCommand.java` | Groups a feature change into a command |
-| `Question.java` | Represents one multiple-choice question |
-| `QuestionBank.java` | Stores example questions |
-| `Progress.java` | Lives, coins, completed levels, stats and streaks |
-| `LivesPolicy.java` | Free/Premium lives behaviour |
-| `UiLog.java` | Text description of current UI elements |
-| `BasicView.java` | Basic Swing interface, not polished |
-| `QuickCheck.java` | Small self-test runnable without JUnit |
-
-All code is directly in `src/`. There is **no** `be/uclouvain/sme33` hierarchy or Java package declaration.
-
-## How to read the code
-
-1. `Main.java`: understand the `Scanner` loop and the `switch` on terminal commands.
-2. `ControllerInterface.java`, then `Controller.java`: see how an input is forwarded.
-3. `LearningModel.java`: start with `startLesson`, `answer`, `changeFeatures` and `refresh`.
-4. `FeatureManager.java`: study how changes are validated on a copy before they are applied.
-5. `QuestionBank`, `Question`, `Progress`, `LivesPolicy`: follow what happens after answering.
-6. `UiLog` and `BasicView`: see how the same UI descriptions are used for logs and Swing.
-7. The tests: compare the expected and actual result of each operation.
-
-## Patterns (simple implementations)
-
-- **MVC:** Main/BasicView input -> Controller -> LearningModel. UI code isn't in `Question` or `Progress`.
-- **Strategy:** `LivesPolicy`, with `FreeLives` and `PremiumLives`, lets the Model use different behaviour for wrong answers.
-- **Command:** `FeatureCommand` represents an activation/deactivation request. This is a basic version, with no undo/history.
-- **Observer:** `LearningModel` keeps `Runnable` listeners, and notifies the optional view when it changes.
-- **Repository-like question storage:** `QuestionBank` hides the question data from the Model. It's an in-memory data source, not a full database repository.
-
-## Still unfinished / to improve later
-
-- The UI is just simple panels, buttons and text. The terminal is more useful for testing the features.
-- The feature model XML isn't parsed dynamically: `FeatureManager.MODEL_NAMES` is a manually copied whitelist of its feature names. If the XML changes, update the Java list too.
-- The XML from M1 has not been corrected or modified. In particular, **Premium -> Stats** and **Premium -> Profile Skin** are coded in Java but not yet declared as constraints in the provided XML. Review this manually in FeatureIDE, taking into account instructor feedback.
-- Only one exercise exists for each subject/difficulty. There's no longer lesson progression or exercise adaptation.
-- No account persistence, no database, server, global leaderboard or real payments.
-- Some XML-declared features are not implemented (e.g. the leaderboard, volume, resolution). They return code 2 instead of pretending to work.
-- `LearningModel` still does quite a lot. A future refactoring could separate the shop and screen contents.
-- The prototype uses `String` screen and feature names in several places. Later an enum or feature registry could reduce typo risk.
-- `FeatureCommand` does not defensively copy arrays yet; a later refactor could do that.
-- `Progress` can be accessed directly from the Model (useful for these early tests, but not ideal encapsulation).
-- The Swing window isn't component-diffed: it recreates its panels on update, while the `UiLog` changes current entries incrementally.
-
-## Testing
-
-```bat
-javac -encoding UTF-8 -d out src\*.java
-java -cp out QuickCheck
+```bash
+mvn test
 ```
 
-This runs a few checks without extra libraries. For the actual JUnit 5 tests run `mvn test`.
+## Terminal commands
 
-**The project ZIP is not yet the complete Moodle submission.** Mission 2 also requires your own PDF report and the FeatureIDE XML at the archive root. See `docs/REPORT_NOTES.md` for what to explain, without drafting the report for you.
+| Command | Description |
+| --- | --- |
+| `help` | Show the commands |
+| `switch english` / `switch physics` / `switch general` | Choose a subject |
+| `start easy` / `start medium` / `start hard` | Start a lesson |
+| `answer 1` to `answer 4` | Answer a question |
+| `home`, `shop`, `profile`, `stats`, `flashcards`, `settings` | Open a page |
+| `buy stats` / `buy premium` / `buy refill` | Buy an item with coins |
+| `activate PREMIUM` | Activate a feature |
+| `deactivate PREMIUM` | Deactivate a feature |
+| `change +PREMIUM,-STREAKS` | Change multiple features at once |
+| `status` | Show the current state |
+| `logs` | Show the current UI logs |
+| `ui on` / `ui off` | Open or close the basic window |
+| `exit` / `quit` | Close the program |
+
+Feature names can contain spaces, for example `activate DAILY GOAL`.

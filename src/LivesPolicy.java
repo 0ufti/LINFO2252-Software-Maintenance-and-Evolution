@@ -1,4 +1,4 @@
-// Strategy: two different ways of handling lives.
+// Strategy : lives can be handled multiple ways
 interface LivesPolicy {
     boolean canPlay(Progress progress);
     void wrongAnswer(Progress progress);

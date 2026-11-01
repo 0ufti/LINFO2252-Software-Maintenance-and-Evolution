@@ -1,10 +1,10 @@
 import java.util.Arrays;
 
-// Just stores one multiple choice question.
+// question record
 public class Question {
     private String text;
     private String[] answers;
-    private int correctAnswer; // 0 is the first answer
+    private int correctAnswer;
     private String explanation;
 
     public Question(String text, String[] answers, int correctAnswer, String explanation) {

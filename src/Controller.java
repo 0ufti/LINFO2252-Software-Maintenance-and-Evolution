@@ -1,15 +1,19 @@
 import java.awt.GraphicsEnvironment;
 import javax.swing.SwingUtilities;
 
-// Controller: takes actions from Main (terminal) or BasicView (GUI).
+// Controller: takes actions from input
 public class Controller implements ControllerInterface {
     private LearningModel model;
     private BasicView view;
 
-    public Controller() { model = new LearningModel(); }
-    public Controller(LearningModel model) { this.model = model; }
+    public Controller() { 
+        model = new LearningModel(); 
+    }
+    public Controller(LearningModel model) { 
+        this.model = model; 
+    }
 
-    // Mandatory method from ControllerInterface. Don't change its signature.
+    // implement interface
     @Override
     public int activate(String[] deactivations, String[] activations) {
         return model.changeFeatures(new FeatureCommand(deactivations, activations));
@@ -23,6 +27,7 @@ public class Controller implements ControllerInterface {
         if (GraphicsEnvironment.isHeadless()) return false;
         if (view != null && view.isOpen()) return true;
         if (view != null) view.close();
+
         try {
             SwingUtilities.invokeAndWait(() -> {
                 view = new BasicView(this, model);
@@ -44,20 +49,28 @@ public class Controller implements ControllerInterface {
         return true;
     }
 
-    public boolean chooseSubject(String name) {
-        return activate(new String[0], new String[]{name}) == 0;
-    }
+    // main behaviour, links inputs to model
+    public boolean chooseSubject(String name) { return activate(new String[0], new String[]{name}) == 0; }
+
     public boolean startLesson(String difficulty) { return model.startLesson(difficulty); }
+
     public boolean answer(int index) { return model.answer(index); }
+
     public boolean open(String screen) { return model.open(screen); }
+
     public boolean buy(String item) { return model.buy(item); }
+
     public String getScreen() { return model.getScreen(); }
+
     public String getSubject() { return model.getSubject(); }
+
     public String getMessage() { return model.getMessage(); }
+
     public Question getQuestion() { return model.getQuestion(); }
+
     public LearningModel getModel() { return model; }
 
-    // Buttons give short IDs. We don't put game rules inside BasicView.
+    // UI links
     public void buttonClicked(String id) {
         if (id.equals("home") || id.equals("shop") || id.equals("profile") ||
             id.equals("stats") || id.equals("flashcards") || id.equals("settings")) {

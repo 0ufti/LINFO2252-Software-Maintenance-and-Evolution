@@ -4,8 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-// Not an action history! This is what should currently be on screen.
-// The same items are also used by BasicView to create Swing components.
+// current items on screen
 public class UiLog {
     public static class Item {
         public String type, id, text, place;
@@ -22,7 +21,6 @@ public class UiLog {
 
     private Map<String, Map<String, Item>> parts = new LinkedHashMap<>();
 
-    // Update one part without clearing the whole log.
     public void update(String name, Collection<Item> items) {
         Map<String, Item> old = parts.computeIfAbsent(name, k -> new LinkedHashMap<>());
         Map<String, Item> wanted = new LinkedHashMap<>();

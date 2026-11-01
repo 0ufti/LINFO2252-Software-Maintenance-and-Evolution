@@ -2,15 +2,13 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-// Handles optional features. The names below come from our M1 feature model.
-// The full XML constraints are NOT checked automatically yet (WIP).
 public class FeatureManager {
     private static final Set<String> SUBJECTS = Set.of("ENGLISH", "PHYSICS", "GENERAL KNOWLEDGE");
     private static final Set<String> OPTIONAL = Set.of(
         "PREMIUM", "STATS", "PROFILE SKIN", "FLASH CARD", "STREAKS",
         "DAILY GOAL", "SETTING", "GRAFICS", "THEME"
     );
-    // All the names in the XML. Some are not implemented yet.
+    // not everything is implemented yet
     private static final Set<String> MODEL_NAMES = new HashSet<>(Arrays.asList(
         "SMART LEARNING SYSTEM", "PROFILE", "PROFILE INFO", "USER NAME", "STATS",
         "PROFILE SKIN", "CONTENT", "LEVELS", "DIFFICULTIES", "EASY", "MEDIUM",
@@ -25,19 +23,20 @@ public class FeatureManager {
     private String subject = "ENGLISH";
 
     public String getSubject() { return subject; }
+
     public boolean isOn(String name) {
         name = name.toUpperCase();
         if (SUBJECTS.contains(name)) return subject.equals(name);
         return active.contains(name);
     }
 
-    // A return code instead of exceptions, because ControllerInterface asks for one.
-    // 0 success / 1 unknown / 2 not implemented / 3 bad combination / 4 locked.
+    // returns : 0 success - 1 unknown - 2 not implemented - 3 bad combination - 4 locked
     public int change(String[] off, String[] on, boolean statsBought) {
         if (off == null || on == null) return 3;
         Set<String> disable = new HashSet<>();
         Set<String> enable = new HashSet<>();
-
+        
+        
         for (String s : off) {
             if (s == null || s.trim().isEmpty()) return 3;
             String name = s.trim().toUpperCase();
@@ -45,6 +44,7 @@ public class FeatureManager {
             if (!OPTIONAL.contains(name) && !SUBJECTS.contains(name)) return 2;
             if (!disable.add(name)) return 3;
         }
+
         for (String s : on) {
             if (s == null || s.trim().isEmpty()) return 3;
             String name = s.trim().toUpperCase();
@@ -53,7 +53,7 @@ public class FeatureManager {
             if (!enable.add(name) || disable.contains(name)) return 3;
         }
 
-        // First calculate everything on a copy, then apply it all at once.
+        // checks everything is ok then apply it all at once
         Set<String> newActive = new HashSet<>(active);
         String newSubject = subject;
         int subjectCount = 0;
@@ -63,7 +63,10 @@ public class FeatureManager {
                 subjectCount++;
             } else newActive.add(s);
         }
+        
+        // checks the rules
         if (subjectCount > 1 || disable.contains(newSubject)) return 3;
+
         for (String s : disable) if (OPTIONAL.contains(s)) newActive.remove(s);
 
         if (!newActive.contains("PREMIUM") && enable.contains("PROFILE SKIN")) return 4;
@@ -86,7 +89,7 @@ public class FeatureManager {
         if (newActive.contains("THEME")) newActive.add("GRAFICS");
         if (newActive.contains("GRAFICS")) newActive.add("SETTING");
 
-        // Commit - an invalid request never changes anything.
+        // apply
         active = newActive;
         subject = newSubject;
         return 0;

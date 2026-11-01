@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-// Keeps the data for one player. Nothing is saved to disk yet.
+// keeps state in memory during program life time
 public class Progress {
     private int lives = 5;
     private int coins = 6;
@@ -40,7 +40,8 @@ public class Progress {
 
     public boolean correct(String subject, String difficulty, LocalDate today, boolean dailyGoal) {
         goodAnswers++;
-        // Set.add tells us whether it is the first completion.
+        
+        // true if first completion
         boolean firstTime = finished.add(subject + ":" + difficulty);
         if (firstTime) coins += 4;
 

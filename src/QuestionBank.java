@@ -1,7 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 
-// Questions are hard-coded for now. Later we could read them from a file.
 public class QuestionBank {
     private Map<String, Question> questions = new HashMap<>();
 

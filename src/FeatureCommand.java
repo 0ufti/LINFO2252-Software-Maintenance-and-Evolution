@@ -1,4 +1,4 @@
-// Command pattern, basic version: group several feature changes in one request.
+// Command pattern, this is a fancy record
 public class FeatureCommand {
     private String[] toDisable;
     private String[] toEnable;
