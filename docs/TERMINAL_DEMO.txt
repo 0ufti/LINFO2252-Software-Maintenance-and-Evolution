@@ -1,0 +1,82 @@
+Smart Learning (work in progress)
+Type help to see the commands.
+-----------------------------
+ENGLISH | Lives: 5/5 | Coins: 6
+Choose: easy, medium, hard
+Choose a subject and difficulty.
+
+> -----------------------------
+PHYSICS | Lives: 5/5 | Coins: 6
+Choose: easy, medium, hard
+Features changed.
+
+> -----------------------------
+PHYSICS | Lives: 5/5 | Coins: 6
+EASY: Which SI unit measures force?
+1. Joule
+2. Newton
+3. Watt
+4. Pascal
+
+> -----------------------------
+PHYSICS | Lives: 5/5 | Coins: 10
+Correct! +4 coins. Force is measured in newtons (N).
+
+> -----------------------------
+PHYSICS | Lives: 5/5 | Coins: 10
+MEDIUM: A 2 kg object accelerates at 3 m/s?. What is the net force?
+1. 1.5 N
+2. 5 N
+3. 6 N
+4. 9 N
+
+> -----------------------------
+PHYSICS | Lives: 5/5 | Coins: 14
+Correct! +4 coins. F = ma = 2 x 3 = 6 N.
+
+> -----------------------------
+PHYSICS | Lives: 5/5 | Coins: 14
+Shop: stats (12), premium (24), refill (5) coins
+
+> -----------------------------
+PHYSICS | Lives: 5/5 | Coins: 2
+Shop: stats (12), premium (24), refill (5) coins
+Statistics unlocked!
+
+> -----------------------------
+PHYSICS | Lives: 5/5 | Coins: 2
+Correct: 2 | Wrong: 0 | Completed: 2/9
+
+> OK
+-----------------------------
+PHYSICS | Lives: unlimited | Coins: 2
+[Premium]
+Correct: 2 | Wrong: 0 | Completed: 2/9
+Features changed.
+
+> text|title|Smart Learning - SME33|HEADER
+text|coins|Coins: 2|HEADER
+text|lives|Lives: unlimited|HEADER
+text|premium|Premium|HEADER
+button|home|Home|NAV
+button|shop|Shop|NAV
+button|profile|Profile|NAV
+button|stats|Statistics|NAV
+title|page|Statistics|MAIN
+text|correct|Correct: 2|MAIN
+text|wrong|Wrong: 0|MAIN
+text|completed|Completed: 2/9|MAIN
+text|notice|Features changed.|MAIN
+
+> OK
+-----------------------------
+PHYSICS | Lives: 5/5 | Coins: 2
+Correct: 2 | Wrong: 0 | Completed: 2/9
+Features changed.
+
+> -----------------------------
+PHYSICS | Lives: 5/5 | Coins: 2
+Correct: 2 | Wrong: 0 | Completed: 2/9
+Features changed.
+
+> Bye!

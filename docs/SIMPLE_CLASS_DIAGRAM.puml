@@ -1,0 +1,34 @@
+@startuml
+skinparam classAttributeIconSize 0
+class Main
+interface ControllerInterface
+class Controller
+class LearningModel
+class FeatureManager
+class FeatureCommand
+class QuestionBank
+class Question
+class Progress
+interface LivesPolicy
+class FreeLives
+class PremiumLives
+class UiLog
+class BasicView
+
+ControllerInterface <|.. Controller
+Main --> Controller : terminal input
+Controller --> LearningModel
+Controller --> BasicView : opens UI
+LearningModel --> FeatureManager
+LearningModel --> QuestionBank
+QuestionBank --> Question
+LearningModel --> Progress
+LearningModel --> UiLog
+LearningModel --> LivesPolicy
+LivesPolicy <|.. FreeLives
+LivesPolicy <|.. PremiumLives
+LearningModel --> FeatureCommand : executes
+FeatureCommand --> FeatureManager : changes features
+BasicView --> Controller : button clicks
+LearningModel ..> BasicView : notifies via Runnable
+@enduml
