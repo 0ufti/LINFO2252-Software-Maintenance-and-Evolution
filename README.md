@@ -1,7 +1,5 @@
 # Smart Learning - SME33
 
-Small Java learning app for the Software Maintenance course.
-
 ## Run the program
 
 Requires Java 17 and Maven. Open a terminal in the project folder and run:

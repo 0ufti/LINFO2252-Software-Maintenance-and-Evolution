@@ -31,7 +31,7 @@ public class BasicView {
         JPanel center = new JPanel(new GridLayout(2, 1));
         pageTitle = new JLabel("", SwingConstants.CENTER);
         center.add(pageTitle);
-        center.add(new JLabel("Use the terminal for lessons and other actions.", SwingConstants.CENTER));
+        center.add(new JLabel("Use terminal for now.", SwingConstants.CENTER));
         frame.add(center, BorderLayout.CENTER);
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
