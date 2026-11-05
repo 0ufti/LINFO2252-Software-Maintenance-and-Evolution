@@ -36,14 +36,14 @@ public class Main {
 
         switch (action) {
             case "help":
-                System.out.println("(select a subject) switch [ english || physics || general ]");
-                System.out.println("(select a lesson)  start [ easy || medium || hard ]");
-                System.out.println("(select an answer) answer [ 1..4 ]");
-                System.out.println("(change page)      home | shop | profile | stats | flashcards | settings");
-                System.out.println("(buy items)        buy [ stats || premium || refill ]");
-                System.out.println("(manage features)  activate _feature_ / deactivate _feature_ / change +_feature_,-_feature_");
-                System.out.println("(UI)               ui [ on || off ]");
-                System.out.println("(others)           status logs exit");
+                System.out.println("(select a subject) " + Color.red("switch") + " [ english || physics || general ]");
+                System.out.println("(select a lesson)  " + Color.red("start") + " [ easy || medium || hard ]");
+                System.out.println("(select an answer) " + Color.red("answer") + " [ 1..4 ]");
+                System.out.println("(change page)      " + Color.red("open") + " home | shop | profile | stats | flashcards | settings");
+                System.out.println("(buy items)        " + Color.red("buy") + " [ stats || premium || refill ]");
+                System.out.println("(manage features)  " + Color.red("activate") + " _feature_ / deactivate _feature_ / change +_feature_,-_feature_");
+                System.out.println("(UI)               " + Color.red("ui") + " [ on || off ]");
+                System.out.println("(others)           " + Color.red("status logs exit"));
                 break;
 
             case "switch":
@@ -70,8 +70,8 @@ public class Main {
                 }
                 break;
 
-            case "home": case "shop": case "profile": case "stats": case "flashcards": case "settings": case "open":
-                if (action.equals("open")) action = value.toLowerCase();
+            case "open":
+                action = value.toLowerCase();
                 if (!c.open(action)) System.out.println("Not yet available.");
                 show(c);
                 break;
@@ -121,7 +121,7 @@ public class Main {
                 break;
 
             default:
-                System.out.println("Unknown command. Type help.");
+                System.out.println(Color.red("Unknown command. Type help."));
         }
     }
 
@@ -132,11 +132,11 @@ public class Main {
 
     // translates codes to readable meaning
     private static void printCode(int code) {
-        if (code == 0) System.out.println("OK");
-        else if (code == 1) System.out.println("Unknown feature (not in our feature model).");
-        else if (code == 2) System.out.println("This feature is not coded yet.");
-        else if (code == 3) System.out.println("Invalid combination.");
-        else if (code == 4) System.out.println("You need Premium or to buy the feature.");
+        if (code == 0) System.out.println(Color.green("OK"));
+        else if (code == 1) System.out.println(Color.red("Unknown feature (not in our feature model)."));
+        else if (code == 2) System.out.println(Color.yellow("This feature is not coded yet."));
+        else if (code == 3) System.out.println(Color.red("Invalid combination."));
+        else if (code == 4) System.out.println(Color.red("You need Premium or to buy the feature."));
     }
 
     // pretty display of controller state
