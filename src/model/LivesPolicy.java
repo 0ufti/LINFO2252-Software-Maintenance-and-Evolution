@@ -10,7 +10,7 @@ interface LivesPolicy {
 class FreeLives implements LivesPolicy {
     public boolean canPlay(Progress progress) { return progress.getLives() > 0; }
     public void wrongAnswer(Progress progress) { progress.loseLife(); }
-    public String displayLives(Progress progress) { return "Lives: " + progress.getLives() + "/5"; }
+    public String displayLives(Progress progress) { return "Lives: " + progress.getLives() + "/"+Config.MAX_LIVES; }
 }
 
 class PremiumLives implements LivesPolicy {

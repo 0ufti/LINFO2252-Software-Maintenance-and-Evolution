@@ -110,7 +110,7 @@ public class LearningModel {
 
         if (good) {
             boolean first = progress.correct(features.getSubject(), difficulty, today(), features.isOn("DAILY GOAL"));
-            if (first) message = "Correct! +4 coins. " + question.getExplanation();
+            if (first) message = "Correct! +"+Config.LEVEL_REWARD+" coins. " + question.getExplanation();
             else message = "Correct! " + question.getExplanation();
         } else {
             progress.wrong();
@@ -128,18 +128,18 @@ public class LearningModel {
 
         if (item.equals("stats")) {
             if (features.isOn("STATS")) { message = "Already unlocked."; refresh(); return false; }
-            if (!progress.spend(12)) { message = "Not enough coins (12 needed)."; refresh(); return false; }
+            if (!progress.spend(Config.STATS_PRICE)) { message = "Not enough coins ("+Config.STATS_PRICE+" needed)."; refresh(); return false; }
             progress.buyStats();
             features.change(new String[0], new String[]{"STATS"}, true);
             message = "Statistics unlocked!";
         } else if (item.equals("premium")) {
             if (features.isOn("PREMIUM")) { message = "Already premium."; refresh(); return false; }
-            if (!progress.spend(24)) { message = "Not enough coins (24 needed)."; refresh(); return false; }
+            if (!progress.spend(Config.PREMIUM_PRICE)) { message = "Not enough coins ("+Config.PREMIUM_PRICE+" needed)."; refresh(); return false; }
             features.change(new String[0], new String[]{"PREMIUM"}, progress.hasStats());
             message = "Premium unlocked!";
         } else if (item.equals("refill")) {
-            if (progress.getLives() == 5 || !progress.spend(5)) {
-                message = "Cannot refill now (5 coins, and you must be missing lives).";
+            if (progress.getLives() == Config.MAX_LIVES || !progress.spend(Config.REFILL_PRICE)) {
+                message = "Cannot refill now ("+Config.REFILL_PRICE+" coins, and you must be missing lives).";
                 refresh();
                 return false;
             }
@@ -154,11 +154,7 @@ public class LearningModel {
         return new UiLog.Item(type, id, text, place);
     }
 
-    // converts the current model in a list of items for the UI
-    // we store them in lists so that we can also use them in logs
-    private void refresh() {
-
-        // header
+    private void updateHeader() {
         List<UiLog.Item> header = new ArrayList<>();
 
         header.add(item("text", "title", "Smart Learning - SME33", "HEADER"));
@@ -179,9 +175,9 @@ public class LearningModel {
         }
 
         log.update("header", header);
+    }
 
-
-        // navigation
+    private void updateNavigation() {
         List<UiLog.Item> nav = new ArrayList<>();
 
         nav.add(item("button", "home", "Home", "NAV"));
@@ -202,9 +198,9 @@ public class LearningModel {
         }
 
         log.update("nav", nav);
+    }
 
-
-        // main content
+    private void updateMain() {
         List<UiLog.Item> main = new ArrayList<>();
 
         if (screen.equals("HOME")) {
@@ -255,15 +251,15 @@ public class LearningModel {
             main.add(item("title", "page", "Shop", "MAIN"));
 
             if (!features.isOn("STATS")) {
-                main.add(item("button", "buy.stats", "Statistics - 12 coins", "MAIN"));
+                main.add(item("button", "buy.stats", "Statistics - "+Config.STATS_PRICE+" coins", "MAIN"));
             }
 
             if (!features.isOn("PREMIUM")) {
-                main.add(item("button", "buy.premium", "Premium - 24 coins", "MAIN"));
+                main.add(item("button", "buy.premium", "Premium - "+Config.PREMIUM_PRICE+" coins", "MAIN"));
             }
 
-            if (progress.getLives() < 5) {
-                main.add(item("button", "buy.refill", "Refill lives - 5 coins", "MAIN"));
+            if (progress.getLives() < Config.MAX_LIVES) {
+                main.add(item("button", "buy.refill", "Refill lives - "+Config.REFILL_PRICE+" coins", "MAIN"));
             }
 
         } else if (screen.equals("PROFILE")) {
@@ -313,6 +309,15 @@ public class LearningModel {
         }
 
         log.update("main", main);
+    }
+
+    // converts the current model in a list of items for the UI
+    // we store them in lists so that we can also use them in logs
+    private void refresh() {
+
+        updateHeader();
+        updateNavigation();
+        updateMain();
 
         // notify the listeners so they can update
         for (Runnable r : listeners) {

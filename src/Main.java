@@ -6,6 +6,7 @@ import controller.Controller;
 import model.LearningModel;
 import model.Progress;
 import model.Question;
+import model.Config;
 
 public class Main {
     public static void main(String[] args) {
@@ -163,7 +164,7 @@ public class Main {
             String[] a = q.getAnswers();
             for (int i = 0; i < a.length; i++) System.out.println((i + 1) + ". " + a[i]);
         } else if (screen.equals("SHOP")) {
-            System.out.println("Shop: stats (12), premium (24), refill (5) coins");
+            System.out.println("Shop: stats ("+Config.STATS_PRICE+"), premium ("+Config.PREMIUM_PRICE+"), refill ("+Config.REFILL_PRICE+") coins");
         } else if (screen.equals("PROFILE")) {
             System.out.println("Profile: Demo learner | completed " + p.getFinishedCount() + "/9");
             if (m.isOn("PROFILE SKIN")) System.out.println("Premium skin");

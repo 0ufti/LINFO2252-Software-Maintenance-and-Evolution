@@ -16,7 +16,7 @@ public class Progress {
     private LocalDate goalDay;
     private int streak = 0;
     private int todayDone = 0;
-    private boolean goalRewarded = false;
+    private boolean goalRewarded = false; // daily goal
 
     public int getLives() { return lives; }
     public int getCoins() { return coins; }
@@ -32,7 +32,7 @@ public class Progress {
     }
 
     public void loseLife() { if (lives > 0) lives--; }
-    public void refill() { lives = 5; }
+    public void refill() { lives = Config.MAX_LIVES; }
     public void wrong() { badAnswers++; }
     public boolean spend(int amount) {
         if (amount < 0 || coins < amount) return false;
@@ -45,7 +45,7 @@ public class Progress {
         
         // true if first completion
         boolean firstTime = finished.add(subject + ":" + difficulty);
-        if (firstTime) coins += 4;
+        if (firstTime) coins += Config.LEVEL_REWARD;
 
         if (!today.equals(goalDay)) {
             goalDay = today;
@@ -60,7 +60,7 @@ public class Progress {
             lastDay = today;
         }
         if (dailyGoal && !goalRewarded) {
-            coins += 3;
+            coins += Config.DAILY_GOAL_REWARD;
             goalRewarded = true;
         }
         return firstTime;
