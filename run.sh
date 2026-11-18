@@ -1,4 +1,7 @@
 #!/bin/sh
+set -eu
+
+cd -- "$(dirname -- "$0")"
 mkdir -p out
-javac -encoding UTF-8 -d out src/*.java || exit 1
-java -cp out Main
+javac -encoding UTF-8 -sourcepath src -d out src/Main.java
+exec java -cp out Main "$@"

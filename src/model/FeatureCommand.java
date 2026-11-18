@@ -1,3 +1,5 @@
+package model;
+
 // Command pattern, this is a fancy record
 public class FeatureCommand {
     private String[] toDisable;

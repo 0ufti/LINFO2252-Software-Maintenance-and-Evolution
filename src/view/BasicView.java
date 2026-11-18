@@ -1,6 +1,19 @@
-import javax.swing.*;
-import java.awt.*;
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
+import controller.Controller;
+import model.LearningModel;
+import model.UiLog;
 
 // for now we can only switch pages
 public class BasicView {

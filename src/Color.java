@@ -1,5 +1,5 @@
-// this class is used as a helper to color text in console
 
+// this class is used as a helper to color text in console
 public class Color {
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLACK = "\u001B[30m";

@@ -2,6 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import controller.Controller;
+import model.LearningModel;
+import model.Progress;
+import model.Question;
+
 public class Main {
     public static void main(String[] args) {
         Controller controller = new Controller();

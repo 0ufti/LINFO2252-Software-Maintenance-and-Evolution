@@ -1,3 +1,5 @@
+package model;
+
 // Strategy : lives can be handled multiple ways
 interface LivesPolicy {
     boolean canPlay(Progress progress);
