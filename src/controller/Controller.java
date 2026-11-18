@@ -1,5 +1,13 @@
+package controller;
+
 import java.awt.GraphicsEnvironment;
 import javax.swing.SwingUtilities;
+
+import model.LearningModel;
+import model.FeatureCommand;
+import model.Question;
+import view.BasicView;
+
 
 // Controller: takes actions from input
 public class Controller implements ControllerInterface {

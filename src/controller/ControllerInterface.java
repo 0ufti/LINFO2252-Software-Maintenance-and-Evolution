@@ -1,5 +1,4 @@
-import java.io.FileWriter;
-import java.io.IOException;
+package controller;
 
 public interface ControllerInterface {
     /** The "activate" method is responsible for (de)activating features.
