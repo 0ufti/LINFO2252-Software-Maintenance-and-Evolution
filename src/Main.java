@@ -3,10 +3,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import controller.Controller;
+import model.Config;
 import model.LearningModel;
 import model.Progress;
 import model.Question;
-import model.Config;
 
 public class Main {
     public static void main(String[] args) {
@@ -47,7 +47,7 @@ public class Main {
                 System.out.println("(select an answer) " + Color.red("answer") + " [ 1..4 ]");
                 System.out.println("(change page)      " + Color.red("open") + " home | shop | profile | stats | flashcards | settings");
                 System.out.println("(buy items)        " + Color.red("buy") + " [ stats || premium || refill ]");
-                System.out.println("(manage features)  " + Color.red("activate") + " _feature_ / deactivate _feature_ / change +_feature_,-_feature_");
+                System.out.println("(manage features)  " + Color.red("activate") + " _feature_ / " + Color.red("deactivate")+ " _feature_ / " + Color.red("change") + " +_feature_,-_feature_");
                 System.out.println("(UI)               " + Color.red("ui") + " [ on || off ]");
                 System.out.println("(others)           " + Color.red("status logs exit"));
                 break;
